@@ -1,0 +1,133 @@
+ALGORITHM sum_of_overlaping_elements_methode1
+VAR
+tab1 : ARRAY_OF INTEGER[5];
+tab2 : ARRAY_OF INTEGER[7];
+sum : INTEGER := 0 ;
+
+BEGIN
+
+tab1 := {3, 1, 7, 9};
+tab2 := {2, 4, 1, 9, 3};
+
+FOR i FROM 0 TO tab1.length-1 STEP 1  DO
+ FOR j FROM 0 TO tab2.length-1 STEP 1  DO
+  IF (tab1[i] == tab2[i]) THEN
+   sum := sum + tab1[i]
+   END_IF
+   j := j + 1
+   END_FOR
+   i := i+1
+   END_FOR
+
+   FOR i FROM 0 TO tab2.length-1 STEP 1  DO
+ FOR j FROM 0 TO tab1.length-1 STEP 1  DO
+  IF (tab2[i] == tab1[i]) THEN
+   sum := sum + tab2[i]
+   END_IF
+   j := j + 1
+   END_FOR
+   i := i+1
+   END_FOR
+
+   END
+
+ALGORITHM sum_of_overlaping_elements_methode2
+
+VAR
+htab1 : HASH_TABLE<INTEGER,STRING>;
+htab2 : HASH_TABLE<INTEGER,STRING>;
+sum : INTEGER := 0 ;
+
+BEGIN
+
+
+htab1.insert(0,"3");
+htab1.insert(1,"1");
+htab1.insert(2,"7");
+htab1.insert(3,"9");
+
+htab2.insert(0,"2");
+htab2.insert(1,"4");
+htab2.insert(2,"1");
+htab2.insert(3,"9");
+htab2.insert(3,"3");
+
+FOR i FROM 0 TO htab1.length -1 STEP 1  DO
+ IF (htab2.lookup(htab1.get(i)) = TRUE) THEN
+ sum := sum + htab1.get(i)*2
+ END_IF
+ END_FOR
+
+ END
+
+
+
+ALGORITHM sum_of_all_distint_elements_methode1
+
+VAR
+tab1 : ARRAY_OF INTEGER[5];
+tab2 : ARRAY_OF INTEGER[7];
+sum : INTEGER := 0 ;
+present : BOOLEAN; 
+
+BEGIN
+
+tab1 := {3, 1, 7, 9};
+tab2 := {2, 4, 1, 9, 3};
+
+FOR i FROM 0 TO tab1.length-1 STEP 1  DO
+ FOR j FROM 0 TO tab2.length-1 STEP 1  DO
+ IF (tab1[i] == tab2[i]) THEN
+  present := true 
+  BREAK /* break from the inner for */
+  END_IF
+  END_FOR
+  sum := sum + tab1[i]
+  present := false
+  END_FOR
+
+  FOR i FROM 0 TO tab2.length-1 STEP 1  DO
+ FOR j FROM 0 TO tab1.length-1 STEP 1  DO
+ IF (tab2[i] == tab1[i]) THEN
+  present := true 
+  BREAK /* break from the inner for */
+  END_IF
+  END_FOR
+  sum := sum + tab2[i]
+  present := false
+  END_FOR
+
+  END
+
+
+ ALGORITHM sum_of_all_distint_elements_methode2
+
+ VAR
+htab1 : HASH_TABLE<INTEGER,STRING>;
+htab2 : HASH_TABLE<INTEGER,STRING>;
+sum : INTEGER := 0 ;
+
+BEGIN
+
+FOR i FROM 0 TO htab1.length -1 STEP 1  DO
+ IF (htab2.lookup(htab1.get(i)) = FALSE) THEN
+ sum := sum + htab1.get(i)
+
+ END_IF
+ END_FOR
+
+ FOR i FROM 0 TO htab2.length -1 STEP 1  DO
+ IF (htab1.lookup(htab2.get(i)) = FALSE) THEN
+ sum := sum + htab2.get(i)
+
+ END_IF
+ END_FOR
+
+
+
+
+
+
+
+
+
